@@ -5,6 +5,25 @@ DNA_dict = {'A': 'T', 'T': 'A', 'G': 'C', 'C': 'G',
 RNA_dict = {'A': 'U', 'U': 'A', 'G': 'C', 'C': 'G',
             'a': 'u', 'u': 'a', 'g': 'c', 'c': 'g'}
 
+# Manual text
+help_text = 'What commands do:\n\n' \
+            'transcribe\n' \
+            'Build mRNA from given DNA sequence, which considered to be sense. ' \
+            'Reverse transcription is not supported!\n\n' \
+            'reverse\n' \
+            'Just it.\n\n' \
+            'complement\n' \
+            'Build complementary DNA for given DNA sequence\n' \
+            'or\n' \
+            'Build complementary RNA for given RNA sequence\n' \
+            'or\n' \
+            'Specify what nucleic acid you want to get if type is unclear (like AGCGA).\n\n' \
+            'reverse complement \n' \
+            'Reverse sequence, then build complementary nucleic acid as described as described above.\n\n' \
+            'Supported sequences are DNA and RNA, and therefore must consist' \
+            ' ONLY of characters "A", "T", "U", "G", "C" (case insensitive).' \
+            ' "T" and "U" must not appear together.\n\n'
+
 
 # Define main functions:
 
@@ -45,7 +64,7 @@ def complement(seq, typus):
     # Maybe list comprehension is at least faster...
     if typus == 'DNA':
         compl_seq = [DNA_dict[nucl] for nucl in seq]
-    if typus == 'RNA':
+    elif typus == 'RNA':
         compl_seq = [RNA_dict[nucl] for nucl in seq]
     return ''.join(compl_seq)
 
@@ -62,16 +81,27 @@ def reverse_complement(seq, typus):
 
 # Set correct commands
 comms = ['exit', 'transcribe', 'reverse',
-         'complement', 'reverse complement']
+         'complement', 'reverse complement', 'help']
+
+# Little manual
+print('Supported commands are:\n\n'
+      'transcribe\n'
+      'reverse\n'
+      'complement\n'
+      'reverse complement \n\n'
+      'For help type "help"!\n\n')
 
 # Initialize infinite cycle
 while True:
     # Command input and check
-    comm = input('Enter command: ').lower()
+    comm = input('Enter command: ').lower().strip('"')
     if comm == 'exit':
         break
     elif comm not in comms:
-        print('Incorrect command.')
+        print('Incorrect command.\n')
+        continue
+    elif comm == 'help':
+        print(help_text)
         continue
 
     # Sequence input
@@ -79,13 +109,13 @@ while True:
 
     # Program won't execute till sequence is correct
     while not check(seq):
-        print('Entered sequence is neither DNA nor RNA.')
+        print('Entered sequence is neither DNA nor RNA.\n')
         seq = input('Enter sequence:')
     # Execution
     if comm == 'transcribe':
         # Check that transcribed sequence is DNA
         while 'U' in seq or 'u' in seq:
-            print('Reverse transcription is not supported :(')
+            print('Reverse transcription is not supported :(\n')
             seq = input('Enter DNA sequence:')
         print(transcribe(seq))
     if comm == 'reverse':
