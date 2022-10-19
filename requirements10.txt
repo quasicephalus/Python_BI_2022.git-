@@ -1,0 +1,4 @@
+pandas==1.4.4
+google==1.9.3
+biopython
+aiohttp
