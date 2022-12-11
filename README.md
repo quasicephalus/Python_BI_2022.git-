@@ -2,9 +2,8 @@
 Simplest way to install all tools is to clone whole branch:
 ```
 git clone --branch Command_line_tools https://github.com/quasicephalus/Python_BI_2022.git-.git
-
 ```
-Or download `.zip` and with and extract scripts in desired location.
+Or download `.zip` and with scripts and extract scripts in desired location.
 
 Every tool present as `.py` script with the name corresponding to bash analog.
 Usage: in command line:
